@@ -54,6 +54,26 @@ func (pub PublicKey) String() string {
 	return encoding.HumanFriendlyBase32Encoding.EncodeToString(pub)
 }
 
+// Number provides a numeric representation of this PublicKey using Base810 encoding.
+func (pub PublicKey) Number() string {
+	return encoding.Base810.EncodeToString(pub, 79)
+}
+
+// ShortNumber provides a short version of Number (first 12 digits)
+func (pub PublicKey) ShortNumber() string {
+	return pub.Number()[:12]
+}
+
 func PublicKeyFromString(id string) (PublicKey, error) {
 	return encoding.HumanFriendlyBase32Encoding.DecodeString(id)
+}
+
+// PublicKeyFromNumber parses a numeric Base810 representation of a PublicKey into an
+// actual PublicKey.
+func PublicKeyFromNumber(id string) (PublicKey, error) {
+	b, err := encoding.Base810.DecodeString(id, 32)
+	if err != nil {
+		return nil, err
+	}
+	return PublicKey(b), nil
 }
