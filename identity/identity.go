@@ -54,19 +54,19 @@ func (pub PublicKey) String() string {
 	return encoding.HumanFriendlyBase32Encoding.EncodeToString(pub)
 }
 
-// Number provides a numeric representation of this PublicKey using Number encoding.
-func (pub PublicKey) Number() string {
-	return encoding.PhoneNumber.EncodeToString(pub, 82)
+// ChatNumber provides a numeric representation of this PublicKey using ChatNumber encoding.
+func (pub PublicKey) ChatNumber() string {
+	return encoding.ChatNumber.EncodeToString(pub, 82)
 }
 
 func PublicKeyFromString(id string) (PublicKey, error) {
 	return encoding.HumanFriendlyBase32Encoding.DecodeString(id)
 }
 
-// PublicKeyFromNumber parses a numeric PhoneNUmber representation of a PublicKey into an
+// PublicKeyFromChatNumber parses a numeric ChatNumber representation of a PublicKey into an
 // actual PublicKey.
-func PublicKeyFromNumber(id string) (PublicKey, error) {
-	b, err := encoding.PhoneNumber.DecodeString(id, 32)
+func PublicKeyFromChatNumber(id string) (PublicKey, error) {
+	b, err := encoding.ChatNumber.DecodeString(id, 32)
 	if err != nil {
 		return nil, err
 	}

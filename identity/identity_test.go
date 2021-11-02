@@ -13,7 +13,7 @@ import (
 func TestRoundTrip(t *testing.T) {
 	publicKey, err := PublicKeyFromString("rfu2495fqazzpq1e3xkj1skmr9785hwbxggpr17ut1htj4h9nhyy")
 	require.NoError(t, err)
-	require.Equal(t, "2277029271600308397119018701998194490680040839333862997699030902896411310611021743", publicKey.Number())
+	require.Equal(t, "2277029271600308397119018701998194490680040839333862997699030902896411310611021743", publicKey.ChatNumber())
 
 	_privateKey, err := encoding.HumanFriendlyBase32Encoding.DecodeString("jkrbbfgym19yz79saxym4mfqxbhzxtndf9r98m76upcxkgyr83cs54x5asgry4x6czscwkakgw476q7mudzgsug1kqrd83t466n1w4e")
 	require.NoError(t, err)
@@ -30,7 +30,7 @@ func TestNumber(t *testing.T) {
 	b := make([]byte, 32)
 	rand.Read(b)
 	pk := PublicKey(b)
-	rt, err := PublicKeyFromNumber(pk.Number())
+	rt, err := PublicKeyFromChatNumber(pk.ChatNumber())
 	require.NoError(t, err)
-	require.Equal(t, pk.Number(), rt.Number())
+	require.Equal(t, pk.ChatNumber(), rt.ChatNumber())
 }
