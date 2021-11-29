@@ -54,6 +54,21 @@ func (pub PublicKey) String() string {
 	return encoding.HumanFriendlyBase32Encoding.EncodeToString(pub)
 }
 
+// ChatNumber provides a numeric representation of this PublicKey using ChatNumber encoding.
+func (pub PublicKey) ChatNumber() string {
+	return encoding.ChatNumber.EncodeToString(pub, 82)
+}
+
 func PublicKeyFromString(id string) (PublicKey, error) {
 	return encoding.HumanFriendlyBase32Encoding.DecodeString(id)
+}
+
+// PublicKeyFromChatNumber parses a numeric ChatNumber representation of a PublicKey into an
+// actual PublicKey.
+func PublicKeyFromChatNumber(id string) (PublicKey, error) {
+	b, err := encoding.ChatNumber.DecodeString(id, 32)
+	if err != nil {
+		return nil, err
+	}
+	return PublicKey(b), nil
 }
